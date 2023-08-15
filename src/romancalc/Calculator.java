@@ -100,11 +100,9 @@ public class Calculator {
 
     public static void main(String[] args) throws IOException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        // Loop forever.
         while (true) {
-            // Show the prompt.
             System.out.print("> ");
-            // Read a line of input.
+
             final String line = reader.readLine();
             if (line.length() == 0) {
                 System.out.println("done");

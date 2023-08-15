@@ -2,7 +2,6 @@ package romancalc;
 
 public class RomanNumerals {
     public static String format(int value) {
-        // Group 1: Write this function!
         String romanNum = "";
 
 
