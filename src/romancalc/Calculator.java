@@ -18,6 +18,14 @@ public class Calculator {
         leftInt = RomanNumerals.parse(leftNumber.toUpperCase());
         rightInt = RomanNumerals.parse(rightNumber.toUpperCase());
 
+        if(leftInt == -1){
+            Integer.parseInt(leftNumber);
+            leftInt = Integer.parseInt(leftNumber);
+        }
+        if(leftInt == -1){
+            Integer.parseInt(rightNumber);
+            leftInt = Integer.parseInt(rightNumber);
+        }
         if (leftInt == -1) {
             numValid = false;
             System.out.println("invalid number: " + leftNumber);
@@ -26,6 +34,7 @@ public class Calculator {
             numValid = false;
             System.out.println("invalid number: " + rightNumber);
         }
+
 
         if (operation.equals("+") || operation.equals("-") || operation.equals("*") ||
                 operation.equals("/") || operation.equals("%") || operation.equals("#")) {
@@ -36,45 +45,36 @@ public class Calculator {
 
         }
 
-        // This block performs the operation if user input is valid
         if (numValid == true && opValid == true) {
 
-            //Addition
             if (operation.equals("+")) {
                 resultInt = leftInt + rightInt;
             }
 
-            //Subtraction
             else if (operation.equals("-")) {
                 resultInt = leftInt - rightInt;
             }
 
-            //Multiplication
             else if (operation.equals("*")) {
                 resultInt = leftInt * rightInt;
             }
 
-            //Division
             else if (operation.equals("/")) {
                 resultInt = leftInt / rightInt;
             }
 
-            //Modulo
             else if (operation.equals("%")) {
                 resultInt = leftInt % rightInt;
             }
 
-            //Average
             else if (operation.equals("#")) {
                 resultInt = (leftInt + rightInt)/2;
             }
 
 
-            // Formats and displays the result
 
             if(opValid && numValid) {
 
-                // If result is in range, formats to roman numeral and displays to console
                 if (resultInt <= 0 || resultInt >= 4000) {
                     System.out.println("result out of range");
                 } else {
@@ -110,7 +110,6 @@ public class Calculator {
                 System.out.println("done");
                 break;
             }
-            // Scan the line into three parts: two numbers with an operator between them.
             final Scanner scanner = new Scanner(line);
             final String leftNumber, operation, rightNumber;
             try {
@@ -124,7 +123,6 @@ public class Calculator {
                 continue;
             }
 
-            // Perform the calculation and show the result.
             calculate(leftNumber, operation, rightNumber);
 
             System.out.println();
