@@ -22,17 +22,15 @@ public class Calculator {
             Integer.parseInt(leftNumber);
             leftInt = Integer.parseInt(leftNumber);
         }
-        if(leftInt == -1){
+        if(rightInt == -1){
             Integer.parseInt(rightNumber);
-            leftInt = Integer.parseInt(rightNumber);
+            rightInt = Integer.parseInt(rightNumber);
         }
-        if (leftInt == -1) {
-            numValid = false;
-            System.out.println("invalid number: " + leftNumber);
+        if (leftInt == -1 && leftInt < 0) {
+            throw new RuntimeException("invalid number: " + leftNumber);
         }
-        if (rightInt == -1) {
-            numValid = false;
-            System.out.println("invalid number: " + rightNumber);
+        if (rightInt == -1 && rightInt < 0) {
+            throw new RuntimeException("invalid number: " + rightNumber);
         }
 
 
@@ -40,12 +38,10 @@ public class Calculator {
                 operation.equals("/") || operation.equals("%") || operation.equals("#")) {
             opValid = true;
         } else {
-            opValid = false;
-            System.out.println("invalid operation");
-
+            throw new RuntimeException("invalid operation");
         }
 
-        if (numValid == true && opValid == true) {
+        if (numValid && opValid == true) {
 
             if (operation.equals("+")) {
                 resultInt = leftInt + rightInt;
