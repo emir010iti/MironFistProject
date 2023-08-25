@@ -7,24 +7,26 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Calculator {
-
     public static void calculate(String leftNumber, String operation, String rightNumber) {
 
         boolean numValid = true;
         boolean opValid = true;
+        boolean isRomainNumber = false;
         int leftInt, rightInt;
         int resultInt = 0;
 
         leftInt = RomanNumerals.parse(leftNumber.toUpperCase());
         rightInt = RomanNumerals.parse(rightNumber.toUpperCase());
 
-        if(leftInt == -1){
+        if (leftInt == -1) {
             Integer.parseInt(leftNumber);
             leftInt = Integer.parseInt(leftNumber);
+            isRomainNumber = true;
         }
-        if(rightInt == -1){
+        if (rightInt == -1) {
             Integer.parseInt(rightNumber);
             rightInt = Integer.parseInt(rightNumber);
+            isRomainNumber = true;
         }
         if (leftInt == -1 && leftInt < 0) {
             throw new RuntimeException("invalid number: " + leftNumber);
@@ -45,40 +47,29 @@ public class Calculator {
 
             if (operation.equals("+")) {
                 resultInt = leftInt + rightInt;
-            }
-
-            else if (operation.equals("-")) {
+            } else if (operation.equals("-")) {
                 resultInt = leftInt - rightInt;
-            }
-
-            else if (operation.equals("*")) {
+            } else if (operation.equals("*")) {
                 resultInt = leftInt * rightInt;
-            }
-
-            else if (operation.equals("/")) {
+            } else if (operation.equals("/")) {
                 resultInt = leftInt / rightInt;
-            }
-
-            else if (operation.equals("%")) {
+            } else if (operation.equals("%")) {
                 resultInt = leftInt % rightInt;
+            } else if (operation.equals("#")) {
+                resultInt = (leftInt + rightInt) / 2;
             }
 
-            else if (operation.equals("#")) {
-                resultInt = (leftInt + rightInt)/2;
-            }
 
-
-
-            if(opValid && numValid) {
+            if (opValid && numValid) {
 
                 if (resultInt <= 0 || resultInt >= 4000) {
-                    System.out.println("result out of range");
+                    throw new RuntimeException("в римской системе не отрицательных чисел");
+                } else if (isRomainNumber) {
+                    System.out.println(resultInt);
                 } else {
                     System.out.println(RomanNumerals.format(resultInt));
                 }
             }
-
-
 
 
         }
@@ -95,6 +86,7 @@ public class Calculator {
     }
 
     public static void main(String[] args) throws IOException {
+
         final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.print("> ");
@@ -106,16 +98,20 @@ public class Calculator {
             }
             final Scanner scanner = new Scanner(line);
             final String leftNumber, operation, rightNumber;
+
             try {
                 leftNumber = scanner.next();
                 operation = scanner.next();
                 rightNumber = scanner.next();
-            }
-            catch (NoSuchElementException e) {
+            } catch (NoSuchElementException e) {
                 System.err.println("syntax error");
                 System.out.println();
                 continue;
             }
+            if (!Validator.isValidExpression(line)) {
+                throw new RuntimeException("формат операции не удовлеворяет заданию или используются разные системы исчисления");
+            }
+
 
             calculate(leftNumber, operation, rightNumber);
 
